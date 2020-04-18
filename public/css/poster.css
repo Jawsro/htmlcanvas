@@ -1,0 +1,85 @@
+body{
+    /* position: absolute;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    background-color: #1c0d02;
+    background: url("https://img.mofyi.com/202001/2010155524114.jpg") no-repeat;
+    background-position:0 0;
+    background-size: cover; */
+    background-color: #1c0d02;
+}
+.bg{
+    position: absolute;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    background-color: #1c0d02;
+    /* background: url("https://img.mofyi.com/202001/2010155524114.jpg") no-repeat;
+    background-position:0 0;
+    background-size: cover; */
+}
+
+
+.container{
+    width: 30%;
+    height: 95%;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: 0;
+    margin-left: auto;
+    z-index: 999;
+}
+#main_ad,.carousel-inner,.item{
+    width: 100%;
+    height: 100%;
+}
+.carousel-inner>.item>img{
+    width: 100%;
+    height: 100%;
+}
+.text{
+    position: absolute;
+    left:0px;
+    bottom:0; 
+    color: #dbbe65;
+    font:54px/75px "Arial";
+}
+#dataNums{
+    position: absolute;
+    left:90px;
+    bottom:0; 
+    color: #dbbe65;
+}
+.spfont{
+    font:54px/75px "Arial";
+}
+.files{
+    border: 1px red solid !important;
+}
+.finish{
+    position: absolute;
+    right:10px;
+    bottom:0px; 
+    color: #dbbe65;
+    font:18px/30px "Arial";
+}
+.files{
+    position: absolute;
+    top: 35%;
+    left:45%;
+    width: 60px;
+    height: 60px;
+    z-index: 99
+}
+.files input {
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    font-size: 0.7rem;
+    color: #fff;
+    opacity: 0;
+}

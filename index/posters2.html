@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>RC Annual Conference</title>
+    <meta content="telephone=no" name="format-detection">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="author" content="mofyi.studio">
+    <link rel="stylesheet" type="text/css" href="https://cdn.mofyi.com/bootstrap/4.1.1/css/bootstrap.min.css" />
+    
+    
+    <link rel="stylesheet" href="../public/css/globle.css">
+    <style>
+        .posters2{
+            position: absolute;
+            top:0;
+            left:0;
+            bottom: 0;
+            right: 0;
+        }
+        .bg{
+            margin:40px 0 30px 30px;
+            width: 80%;
+            max-height: 600px; 
+        }
+        .bg img{
+            width:100%;
+            max-height: 600px; 
+        }
+        .container{
+            position: absolute;
+            right:0;
+            top:0;
+            width: 30%;
+            height: 100%;
+            padding-right: 0px;
+            padding-left: 0px;
+            margin-right: 0;
+            margin-left: 0;
+        }
+        #main_ad,.carousel-inner,.item{
+            width: 100%;
+            height: 100%;
+        }
+        .carousel-inner>.item>img{
+            width: 100%;
+            height: 100%;
+        }
+        #dataNums{
+            position: absolute;
+            left:92px;
+            bottom:0; 
+            color: #dbbe65;
+            font:54px/75px "Arial";
+        }
+        .text{
+            position: absolute;
+            left:0px;
+            bottom:0; 
+            color: #dbbe65;
+            font:54px/75px "Arial";
+        }
+        .none{
+            display: none;
+        }
+        #img{
+            width:100%
+        }
+        .revise{
+            position: absolute;
+            right:60px;
+            bottom:0px; 
+            color: #dbbe65;
+            font:18px/30px "Arial";
+        }
+        .down,.finish{
+            position: absolute;
+            right:10px;
+            bottom:0px; 
+            color: #dbbe65;
+            font:18px/30px "Arial";
+        }
+        .down a{
+            color: #dbbe65;
+            font:18px/30px "Arial";
+        }
+    </style>
+    <script>
+        //根据浏览器宽度给font-size赋值，rem。
+        (function (doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize' ,
+                recalc = function () {
+                    window.clientWidth = docEl.clientWidth;
+                    if (! window.clientWidth) return ;
+                    docEl. style.fontSize = 20 * (window.clientWidth / 320) + 'px';
+                    window.base = 20 * ( window.clientWidth / 320);
+                };
+            if (! doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener( 'DOMContentLoaded', recalc, false);
+        })(document, window);
+
+        (function () {
+            if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
+                handleFontSize();
+            } else {
+                if (document.addEventListener) {
+                    document.addEventListener("WeixinJSBridgeReady", handleFontSize, false);
+                } else if (document.attachEvent) {
+                    document.attachEvent("WeixinJSBridgeReady", handleFontSize);
+                    document.attachEvent("onWeixinJSBridgeReady", handleFontSize);
+                }
+            }
+            function handleFontSize() {
+                // 设置网页字体为默认大小
+                WeixinJSBridge.invoke('setFontSizeCallback', {
+                    'fontSize': 0
+                });
+                // 重写设置网页字体大小的事件
+                WeixinJSBridge.on('menu:setfont', function () {
+                    WeixinJSBridge.invoke('setFontSizeCallback', {
+                        'fontSize': 0
+                    });
+                });
+            }
+        })();
+    </script>
+    <script src="../public/js/html2canvas.min.js"></script>
+</head>
+<body>
+    <!--  海报  预览页面 -->
+        <div class="posters2">
+            
+            <div class="bg"><img src="" alt=""></div>
+            <div class="container">
+                <div id="main_ad" class="carousel slide" >
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item active">
+                            <img src="" alt="..." class="img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        <div class="text">NO.</div>
+        <div id="dataNums"></div>
+    </div>
+    <div class="revise">修改</div>
+    <div class="finish">完成</div>
+    <div class="down none">保存</div>
+    <img src="" alt="" id="img">
+</body>
+<script src="https://cdn.mofyi.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.mofyi.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="../public/js/num.js"></script>
+<script>
+    $(function(){
+        var num=sessionStorage.getItem("num");
+        var imgurl=sessionStorage.getItem("imgurl");
+        var url=sessionStorage.getItem("url");
+        //console.log(num ,imgurl,url)
+        $("#dataNums").html(num)
+        $(".img").attr("src",imgurl)
+        $(".bg img").attr("src",url)
+    })
+    $(".revise").click(function(){
+        window.location.href='posters.html'
+    })
+    $(".finish").click(function(){
+        html2canvas(document.querySelector(".posters2"),{
+            // useCORS: true,
+            allowTaint:true,//允许跨域
+            backgroundColor: "transparent",//设置背景为透明
+        }).then(canvas => {
+                document.body.appendChild(canvas);
+               $("canvas").css("display","none");
+                //console.log(canvas.toDataURL("image/png"));
+                // localStorage.setItem("url",canvas.toDataURL("image/png"))
+               $("#img").attr("src",canvas.toDataURL("image/png"));
+               $(".posters2").addClass("none");
+            });
+           
+            $(".revise").addClass("none");
+            $(".finish").addClass("none");
+            $(".down").removeClass("none")
+    })
+    //////////////////////////// 
+    //将base64格式图片转换为文件形式
+    function dataURLtoFile(dataurl, filename) {
+        var arr = dataurl.split(","),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]),
+            n = bstr.length,
+            u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new File([u8arr], filename, {
+            type: mime
+        });
+    }
+    $(".down").click(function(){
+        let imsrc=$("#img").attr("src");//生成的图片
+        // console.log(imsrc)
+        var file = dataURLtoFile(imsrc, "img");
+        console.log(file)
+        var username="安安q";//姓名
+        formData.append('username', username)
+        $.ajax({
+            url:url,
+            data:formData,
+            type:"post",
+            dataType:"json",
+            cache: false, //上传文件不需要缓存
+            processData: false, // 告诉jQuery不要去处理发送的数据
+            contentType: false, // 告诉jQuery不要去设置Content-Type请求头
+            success:function(result){
+                console.log(result)
+            }
+        })
+    })
+</script>
+<script>
+    
+</script>
+</html>
